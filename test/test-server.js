@@ -142,3 +142,71 @@ describe('Shopping List', function() {
       });
   });
 });
+
+describe('/Recipes', function(){
+  it('Expect list of recipes on GET', function(){
+    return chai.request(app)
+    .get('/Recipes')
+    .then(function(res){
+        expect(res).to.be.json;
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.a('array');
+
+        //check if we have atlest one recipe
+        expect(res.body.length).to.be.at.least(1);
+        const expectedKeys=['id', 'name', 'ingredients'];
+        res.body.forEach(function(recipe){
+          expect(recipe).to.be.a('object');
+          expect(recipe).to.include.keys(expectedKeys);
+        });
+      });
+
+    });
+
+    it('Should add a recipe on Post', function(){
+      const newRecipe={name:'Tea', ingredients:['1/2c milk','1/2water','1 teabag','1tsp sugar']};
+      return chai.request(app)
+      .post('/Recipes')
+      .send(newRecipe)
+        .then(function(res){
+        expect(res).to.be.json;
+        expect(res).to.have.status(201);
+        expect(res.body).to.be.a('object');
+        expect(res.body).to.include.keys('id','name','ingredients');
+        expect(res.body.id).to.not.equal(null);
+        // response should be deep equal to `newItem` from above if we assign
+        // `id` to it from `res.body.id`
+        expect(res.body).to.deep.equal(Object.assign(newRecipe, {id: res.body.id}));
+        });
+      });
+
+      it('Should update recipes on PUT', function(){
+        const updateRecipe={name:'Tea', ingredients: ['1c hot water', '1 tea bag','1/4 tsp sugar']};
+        return chai.request(app)
+        //Use GET to get recipe id that will be used to update
+        .get('/Recipes')
+        .then(function(res){
+          updateRecipe.id = res.body[0].id;
+          return chai.request(app)
+          .put(`/Recipes/${updateRecipe.id}`)
+          .send(updateRecipe)
+          })
+          .then(function(res){
+            expect(res).to.have.status(204);
+          });
+        });
+
+        it('Should update recipes on PUT', function(){
+          return chai.request(app)
+          //Get the id of the recipe to DELETE
+          .get('/Recipes')
+          .then(function(res){
+            return chai.request(app)
+            .delete(`/Recipes/${res.body[0].id}`);
+          })
+          .then(function(res){
+            expect(res).to.have.status(204);
+          });
+        });
+
+  });
