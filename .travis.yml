@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: dUYB9mHx83UoWootkx0PfGEcYj/9Df5LTJdJemC+DfnGaaIdy1/tO4DdT8HsKZFJKdr4ubwk9xPuCK3Vgwtt7svbIPMY54vUxnJsQ0583yNbSyd538ENUgMu9TepArQZYBp62yssWk7RG2hYd2TfZsmnQ2K8JunkFEKZ+Hb35yTNarQTQVyb2UBb9TCjD7BoKkg1tFDA+qWHXnFkDmiUkwYVmioLfy5JJttTh3eJNb/2wLy2MdxPAhF5CLDwLK2jORoyn9XEQvd3MCpB3My6Gg+TBP3ER3dUxB8dEJvpEDAOYhpOebJQjJB1F3daKT18E47MlKm8oudgBqcxKSKy/PzCnBcgNh5Uz6Mp2S+w2Bmop7y04LD1qsOhfWecVJHP3OssmDNpFvs5tNAxcyYnhQPYpE284nfCBodnu+t1qaguUSUkfGEUz2fuBLsZCDjdcBS1To+YGXBhS9sSTwk04h3j2ufFRmFpDYleIRvA5QPvCGyraDdbspDKv4fiuGHR9vH0K+8Pl+KyJLOBNCUHMnzt4KH+CZASyOhouKlqTx3KJRM357WWHlCvUd80eD5WZQ71aEaxRQwwO9J+VyVL+o0P9e2VlD+K8l5cfn8W8c+FE7m9R5jtma47EH3bByuuOeM5H+g+NtiHida7ZoliClZoc4Hf685N9U9fmkkONPU=
+  app: peaceful-depths-72268
+  on:
+    repo: Kavithanigai/node-shopping-list-integration-tests
